@@ -1,25 +1,50 @@
-title:              ENUSEC Blog
-email:              team@enusec.org
-description:        Edinburgh Napier Security Society Research Blog
-author:             ENUSEC
-baseurl:            "/"
-url:                "https://blog.enusec.org"
+title: ENUSEC Blog
+author: ENUSEC
+email: team@enusec.org
+description: > # this means to ignore newlines until "show_exerpts:"
+  The Official ENUSEC (Edinburgh Napier Security Society) Research Blog.
+  Read about our research, vulnerabilities, CTF Writeups and quality content our members produce.
+show_excerpts: true # set to true to show excerpts on the homepage
+baseurl:
 
-# Social Profiles
-twitter_username:   enusec
-github_username:    ENUSEC
-facebook_username:  enusec
-instagram_username:  
-linkedin_username:
+# Minima date format
+# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+sass:
+  sass_dir: _sass
 
-# Add your google-analytics ID here to activate google analytics
-google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+permalink: /posts/:title/
+texture:
+  title: ENUSEC
+  tagline: Edinburgh Napier Security Society
+  date_format: "%b %-d, %Y"
+  style: enusec
+  showNav: true
+  navigation:
+    - title: "Home"
+      url: "/"
+    - title: "About"
+      url: "/about"
+    - title: "Membership"
+      url: "https://join.enusec.org"
+    - title: "Discord"
+      url: "https://discord.enusec.org"
+  showPicker: false
+
+  # generate social links in footer
+  social_links:
+    twitter: enusec
+    github:  ENUSEC
+    linkedIn: enusec
+ 
+
+# If you want to link only specific pages in your header, uncomment
+# this and add the path to the pages in order as they should show up
+#header_pages:
+#  - about.md
 
 # Build settings
-markdown:           kramdown
-paginate:           5
-paginate_path:      "/posts/page:num/"
+# theme: texture
+
 plugins:
-  - jekyll-feed
-  - jekyll-paginate
-  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+  - jekyll-seo-tag
+#  - jekyll-feed

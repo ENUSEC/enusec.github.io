@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<title>Quickly Reversing The SolarWinds Backdoor</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Quickly Reversing The SolarWinds Backdoor | ENUSEC Blog</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Quickly Reversing The SolarWinds Backdoor" />
+<meta name="author" content="ENUSEC" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Quick look into how you might approach reverse engineering the SolarWinds Backdoor." />
+<meta property="og:description" content="A Quick look into how you might approach reverse engineering the SolarWinds Backdoor." />
+<meta property="og:site_name" content="ENUSEC Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-28T20:27:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Quickly Reversing The SolarWinds Backdoor" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"/posts/solarwinds/","headline":"Quickly Reversing The SolarWinds Backdoor","dateModified":"2020-12-28T20:27:00+00:00","datePublished":"2020-12-28T20:27:00+00:00","author":{"@type":"Person","name":"ENUSEC"},"mainEntityOfPage":{"@type":"WebPage","@id":"/posts/solarwinds/"},"description":"A Quick look into how you might approach reverse engineering the SolarWinds Backdoor.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+</head>
+<body>
+  <header class="texture-enusec">
+    <div class="container"><div class="navbar">
+	<ul>
+		
+		<a href="/"><li  >Home</li></a>
+		
+		<a href="/about"><li  >About</li></a>
+		
+		<a href="https://join.enusec.org"><li  >Membership</li></a>
+		
+		<a href="https://discord.enusec.org"><li  >Discord</li></a>
+		
+	</ul>
+</div></div><div class="container">
+	<h1>Quickly Reversing The SolarWinds Backdoor</h1>
+	<h4 class="post-description">A Quick look into how you might approach reverse engineering the SolarWinds Backdoor.</h4>
+	<div class="post-date" style="margin-top:20px">
+		Published on Dec 28, 2020
+	</div>
+	<ul class="post-tags"><li>SolarWinds</li><li>RE</li><li>Threats</li><li>APT</li></ul>
+</div>
+</header>
+  <main>
+    <div class="container">
+      <div class="post-container">
+          <p>This is a brief writeup on how to get your hands dirty with reversing the SolarWinds backdoor, some of the tooling required, and where to find it within the backdoored DLL.</p>
+
+<p>The SolarWinds compromise was a sophisticated supply-chain attack, in which it is highly likely the attackers had access to the build-process of SolarWinds Orion - the company’s flagship product.</p>
+
+<p>The sample we’ll be looking at has a SHA-256 hash of <code class="language-plaintext highlighter-rouge">019085a76ba7126fff22770d71bd901c325fc68ac55aa743327984e89f4b0134</code>.</p>
+
+<ol>
+  <li>Choose your analysis environment, we recommend using a VM, such as FireEye’s Threat Intelligence “ThreatPursuit-VM” which can be found <a href="https://github.com/fireeye/ThreatPursuit-VM">here</a>.</li>
+  <li>We have provided the malware for analysis here, download the backdoored SolarWinds DLL from here:  <a href="/assets/res/posts/solarwinds/solarwinds_implant.zip">solarwinds_implant.zip</a>. The password is <code class="language-plaintext highlighter-rouge">infected</code>. You may need to disable Windows Defender, or any other anti-malware solution, if enabled in your analysis environment.</li>
+  <li>Next, as we’re dealing with a .NET binary, we’ll use dnSpy (or any other .NET reflector) to decompile the bytecode back to source. Grab the latest release <a href="https://github.com/dnSpy/dnSpy/releases/download/v6.1.8/dnSpy-net-win64.zip">here</a>, and extract to a location of your choice.</li>
+  <li>Start dnSpy, and open the malware - File -&gt; Open. Next, you’ll see it opened in the left pane. We can observe several classes within the SolarWinds code, this is expected as the attackers embedded the backdoor code within legitimate SolarWinds-written code - they are likely to of have had presence  in SolarWind’s entire build process
+<img src="/assets/res/posts/solarwinds/nvekw.png" alt="nvekw.png" /></li>
+  <li>Now, we’ll locate the backdoor code. Go to the <code class="language-plaintext highlighter-rouge">SolarWinds.Orion.Core.BusinessLayer</code> namespace from the listing.</li>
+  <li>Next, you’ll see a bunch of classes. Select the <code class="language-plaintext highlighter-rouge">OrionImprovementBusinessLayer</code> class from the listing.</li>
+  <li>Sick, we’ve successfully identified the malicous code. 
+<img src="/assets/res/posts/solarwinds/l8rbghqemf.png" alt="l8rbghqemf.png" /></li>
+  <li>Have fun reversing, we highly recommended taking a look at <a href="begin.re">begin.re</a>, and Malware Unicorn’s <a href="https://malwareunicorn.org/workshops/re101.html#0">RE101</a> if you want to learn more.</li>
+</ol>
+
+<h1 id="detection">Detection</h1>
+<p>FireEye released a whole host of YARA rules (and more), to detect this specific threat. This can be found <a href="https://github.com/fireeye/sunburst_countermeasures/blob/main/all-yara.yar#L6-L23">here</a>.</p>
+
+<h2 id="boring-stuff">Boring Stuff</h2>
+<p>The information contained in this website is for general information purposes only. The information is provided by ENUSEC and while we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.</p>
+
+<p>In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.</p>
+
+<p>Through this website you are able to link to other websites which are not under the control of ENUSEC. We have no control over the nature, content and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.</p>
+
+<p>Every effort is made to keep the website up and running smoothly. However, ENUSEC, takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.</p>
+
+      </div>
+
+        <!-- Configure Disqus --></div>
+  </main></body>
+</html>
