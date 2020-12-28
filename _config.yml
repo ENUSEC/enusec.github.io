@@ -1,14 +1,14 @@
-title:              Clean Blog
-email:              your-email@example.com
-description:        A Blog Theme by Start Bootstrap
-author:             Start Bootstrap
+title:              ENUSEC Blog
+email:              team@enusec.org
+description:        Edinburgh Napier Security Society Research Blog
+author:             ENUSEC
 baseurl:            "/startbootstrap-clean-blog-jekyll"
-url:                "https://startbootstrap.github.io"
+url:                "https://blog.enusec.org"
 
 # Social Profiles
-twitter_username:   SBootstrap
-github_username:    StartBootstrap
-facebook_username:  StartBootstrap
+twitter_username:   enusec
+github_username:    ENUSEC
+facebook_username:  enusec
 instagram_username:  
 linkedin_username:
 
