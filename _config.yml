@@ -2,7 +2,7 @@ title:              ENUSEC Blog
 email:              team@enusec.org
 description:        Edinburgh Napier Security Society Research Blog
 author:             ENUSEC
-baseurl:            "/startbootstrap-clean-blog-jekyll"
+baseurl:            "/"
 url:                "https://blog.enusec.org"
 
 # Social Profiles
