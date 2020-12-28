@@ -5,6 +5,8 @@ description: Writeup for the challenges in the Web category for the FreshersCTF 
 date:   2020-12-27 20:27:00 +0000
 categories: CTF WebApp
 ---
+Writeup for the challenges in the Web category for the FreshersCTF 2020 ran by ENUSEC.
+
 # Robots go Beep	
 
 ## Problem
