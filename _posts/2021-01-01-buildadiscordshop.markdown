@@ -5,29 +5,28 @@ description: Learn how you can create your own Shop Bot on Discord using Discord
 date:   2021-01-01 13:00:00 +0000
 categories: Discord Bot Shop E-commerce Crypto Programming
 ---
-
-![](https://discordpayments.com/logo.png)
-
-Discord Payments is a discord bot that allows for secure crypto currency payments to be made by the users on your discord server. 
+Discord Payments is a discord bot that allows for secure crypto currency payments to be made by the users on your discord server.
 
 Simply add the bot to your server and people can start making payments.
 
-## How it works
+![](https://discordpayments.com/logo.png)
+
+# How it works
 Discord Payments works by providing a cryptographically secure receipt token when a payment is complete.
 
 This token can then be used as proof of payment and you can issue product to the particular user.
 
 The bot has one main command the `$$buy` command where a user will specify the type of currency, amount in USD, address to send the funds and finally a unique identifier which specifies the particular product.
 
-## Creating a store
-#### Stage 1 (Add the bot to your server)
+# Creating a store
+## Stage 1 (Add the bot to your server)
 In order to create your own Discord Shop the first thing you need to do is add the discord payments bot to your server. To do that you simply use the below link to add the bot.
 
 [Add the Official Discord Payments Bot to your Server.](https://discord.com/api/oauth2/authorize?client_id=784856689337827359&permissions=67584&scope=bot)
 
 It is as simple as that. Once the bot has been added to your server you can now accept crypto currency payments in a crypto currency of your choice (provided you have a wallet and recieving address).
 
-#### Stage 2 (Specify Products)
+## Stage 2 (Specify Products)
 The next stage is to set up your products.
 
 For this example I will be implementing a Donations payment store where roles are assigned based on the amount that is donated, however the same proccess can be slightly changed to suite any type of product.
@@ -55,7 +54,7 @@ BTC Address: 3QT3MUnfJQqj3wzAFtHL4GVKPZYk3tM4K1
 LTC Address: MJmfxteBdHUiN8AU47k27vw4bQvQvePkg3
 ```
 
-#### Stage 3 (Create your Bot)
+## Stage 3 (Create your Bot)
 The next stage is to create your Bot. Creating a Discord Bot is relatively simple. You first have to register it using the Developer Portal and then you can begin to build the bot and commands that can be used.
 
 If you already have a Bot and you are adding a shop to it the majority of this stage can be skipped.
@@ -143,7 +142,7 @@ You should see that your bot comes online and you can begin to interact with it.
 
 A full tutorial on creating a Discord bot can be seen [here](https://realpython.com/how-to-make-a-discord-bot-python/).
 
-#### Stage 4 (Recieve and Validate Payments)
+## Stage 4 (Recieve and Validate Payments)
 Now we have a bot set up it is time we add the ability to recieve and validate payments.
 
 Since Discord Payments handles the actual payment proccess you don't need to worry about any of that, you simply need to add a command which accepts a token and responds depending on whether the validation checks succeed and unique Identifier exists.
@@ -302,7 +301,7 @@ if token:
 else:
     response = "Invalid Token"
 ```
-#### Stage 5 (Issue Product)
+## Stage 5 (Issue Product)
 Now our Bot is validating payments you can begin to serve products.
 
 In this example it is relatively simple since I am just controlling discord roles.
@@ -344,7 +343,7 @@ To assign roles you will need to import the following module.
 ```python
 from discord.utils import get
 ```
-#### Stage 6 (Track Receipt tokens)
+## Stage 6 (Track Receipt tokens)
 For shops which are implementing subscription based payments and one time use tokens it is important that you record tokens that have previously been used and when you validate the receipt token in `Stage 4`. When you validate the token you check the token aginst previously used tokens and record if they are expired or not.
 
 I suggest using a DBMS in order to do this. MYSQL is easy enough to implement and you can also pool connectors for efficiency if you expect to recieve a large amount of transactions. [A MYSQL Tutorial can be found Here](https://www.mysqltutorial.org/python-mysql/)
@@ -353,7 +352,7 @@ This is to ensure token reuse is not possible. By desgin we have tried to make o
 
 In our example here this is not a problem since a user can only be given a discord role once. However for other services this should be a consideration when implemetning your shop.
 
-#### Entire Code
+## Entire Code
 Once you have completed the bot it is up to you to beautify the messages and modify the help message. However, a basic Donation platform implemented with DIscord Payments will look similar to the bellow:
 ```python
 from discord.utils import get
@@ -439,7 +438,7 @@ async def donate(ctx, receipt):
     await ctx.send(response)
 ```
 
-#### Making a payment
+## Making a payment
 Now for a user to make a payment they first use the Discord Payment Bot to get a receipt token.
 
 To make a payment the user decides the amount they want to donate, the crypto currency they will use, the address to send the payment too and finally the identifier of the product they are essentially buying.
@@ -450,10 +449,13 @@ Therefore the user would issue the following command in order to get a payment l
 ```
 $$buy 10 LTC MJmfxteBdHUiN8AU47k27vw4bQvQvePkg3 1
 ```
-Command | Amount in USD | Crypto Currency | Address | Product Identifier
---- | --- | --- | --- | ---
-$$buy | 10 | LTC | MJmfxteBdHUiN8AU47k27vw4bQvQvePkg3 | 1
-
+```
+...........................................................................................................
+: Command  : Amount in USD  : Crypto Currency  :              Address               : Product Identifier  :
+:..........:................:..................:....................................:.....................:
+: $$buy    :             10 : LTC              : MJmfxteBdHUiN8AU47k27vw4bQvQvePkg3 :                   1 :
+:..........:................:..................:....................................:.....................:
+```
 The discord payments Bot would reply with a link for the user to make the payment which would redirect them to [CoinPayments](https://www.coinpayment.net/).
 
 ![](https://discordpayments.com/images/coinpayments.png)
@@ -471,8 +473,8 @@ This token can then be copied and passed to the Donations Bot you have just crea
 Which will be validated by the Bot and the user will be given their role.
 
 
-### Find out More
-Visit https://discordpayments.com to find out more ... 
+# Find out More
+Visit [Discord Payments](https://discordpayments.com) to find out more ... 
 
 You can also join the [Official Discord Payments Community Here](https://discord.gg/EuYnVnCma7).
 
