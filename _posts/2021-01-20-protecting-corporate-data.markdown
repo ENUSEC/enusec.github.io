@@ -166,7 +166,7 @@ Jakob Como, 7/06/2013. Plummer Slade, inc - "How to keep server rooms/equipment 
 [Last accessed Dec 18th, 2020]
 
 0x5ubt13, 17/11/2020. Subtle Labs - "Firewalls and Intrusion Detection Systems" [Online] \
-[https://0x5ubt13.github.io/my-blog/firewalls/](https://0x5ubt13.github.io/my-blog/firewalls/) \
+[https://0x5ubt13.github.io/my-blog/blog/firewalls/](https://0x5ubt13.github.io/my-blog/blog/firewalls/) \
 [Last accessed Dec 18th, 2020]
 
 Anon., 2020. Cisco - "What Is a Firewall?" [Online] \
