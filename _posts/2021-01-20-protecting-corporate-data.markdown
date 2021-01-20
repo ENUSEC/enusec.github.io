@@ -11,7 +11,7 @@ In this Blog post I will be discussing Hardware security protection, Firewalls, 
 
 
 |           Key                         |                      Content                          |
-|--------------------------------------:|:------------------------------------------------------|
+|:--------------------------------------|:------------------------------------------------------|
 | <a href="#hardware">1</a>             | Hardware security protection                          |
 | <a href="#firewall">2</a>             | What is a firewall                                    |
 |   <a href="#types">2.1</a>            |   Types of firewall                                   |
@@ -166,7 +166,7 @@ Jakob Como, 7/06/2013. Plummer Slade, inc - "How to keep server rooms/equipment 
 [Last accessed Dec 18th, 2020]
 
 0x5ubt13, 17/11/2020. Subtle Labs - "Firewalls and Intrusion Detection Systems" [Online] \
-[https://0x5ubt13.github.io/blog/2020/11/17/firewalls.html](https://0x5ubt13.github.io/blog/2020/11/17/firewalls.html) \
+[https://0x5ubt13.github.io/my-blog/firewalls/](https://0x5ubt13.github.io/my-blog/firewalls/) \
 [Last accessed Dec 18th, 2020]
 
 Anon., 2020. Cisco - "What Is a Firewall?" [Online] \
