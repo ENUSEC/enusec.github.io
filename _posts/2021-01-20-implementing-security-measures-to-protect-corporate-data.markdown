@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "Implementing security measures to protect corporate data"
-description: "Hardware security protection, Firewalls, Data breach mitigation and Access Control Lists"
+description: Hardware security protection, Firewalls, Data breach mitigation and Access Control Lists.
 date: 2021-01-20 16:00:00 +0000
 categories: Blog
 ---
 
-# Implementing security measures to protect corporate data
+In this Blog post we will discuss an overview of security measures taken to protect coorporate data. We will look at Firewalls, Hardware security protections, data breach mitigation and Access Control Lists.
 
 ### Table of contents:
 
