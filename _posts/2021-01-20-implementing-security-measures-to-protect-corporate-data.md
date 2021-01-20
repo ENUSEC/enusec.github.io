@@ -2,12 +2,9 @@
 layout: post
 title:  "Implementing security measures to protect corporate data"
 description: "Hardware security protection, Firewalls, Data breach mitigation and Access Control Lists"
-author: 0x5ubt13
-date: 2020-12-08 16:00:00 +0000
+date: 2021-01-20 16:00:00 +0000
 categories: Blog
 ---
-
-Last edited: December 19th, 2020.
 
 # Implementing security measures to protect corporate data
 
