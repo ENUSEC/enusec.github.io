@@ -47,10 +47,7 @@ The next stage in my proccess was to explore what the application was doing behi
 
 Using task manager I was able to discover two running executables and three services. The executables and running privileges can be seen bellow.
 
-| Executable Name      | User |
-| ----------- | ----------- |
-| activation-service.exe      |    SYSTEM    |
-| soda.exe   | Current User        |
+![Table of executables](/assets/res/posts/sodaPDF/executables.PNG)
 
 Despite being very limited this information provides some interesting insight, specifically that the activation service (presumably monitoring the time left on the free trial) is running as system. This is interesting because if there happens to be a weakness in the executable there may be scope for elavation of privileges (EOP).
 
