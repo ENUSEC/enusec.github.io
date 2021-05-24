@@ -12,7 +12,7 @@ methodology to bypass SSL Pinning against other Desktop and Thick Client applica
 SSL Pinning/SSL Certificate Pinning is a method for preventing Man in the Middle attacks against an applications secure network communications. By taking record of a hosts public key the application can
 verify that it is talking securely to the host, since it verifies the public certificate provided by the host with the one the application already knows about.
 This pins the certificate and if an attempt is made to intercept this communication by spoofing the host, the application will detect this due to there being a mismatch between the
-certifcate the application knows about and the certificate being provided by the spoofed host.
+certificate the application knows about and the certificate being provided by the spoofed host.
 
 SLL Pinning is used in a large amount of applications, desktop applications, thick client applications and mobile applications are the most common however it is not limited to
 just these instances.
